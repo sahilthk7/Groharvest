@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GroHarvest</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+    <link rel="manifest" href="./images/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body{
+        background: url(./images/black.png);
+      
+      }
+    label,
+    input {
+        display: block;
+        width: 100%;
+      padding-bottom:10px;
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        padding: 0.3em;
+    }
+    input[type="submit"] {
+        background: #004225;
+        color: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        margin-top: 1.3em;
+        cursor:pointer;
+    }
+    input[type="submit"]:hover{
+      background-color:#206a00;
+    }
+    
+    .container {
+        width: 1000px;
+        margin: 5em auto;
+    }
+    form {
+        background-color: #ffffff;
+        padding-top: 40px;
+        padding-right: 40px;
+        padding-bottom: 40px;
+        padding-left: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    
+    input {
+        width: 100%;
+        padding: 9px 20px;
+        border: 1px solid #e1e2eb;
+        color: #102a43;
+        box-sizing: border-box;
+        font-size: 14px;
+        box-shadow: inset 0 2px 4px 0 rgba(206, 209, 224, 0.2);
+        border-radius: 3px;
+    }
+    label {
+        font-family: sans-serif;
+        font-size: 1rem;
+        padding-right: 10px;
+      }
+      
+      select {
+        font-size: 0.9rem;
+        padding: 2px 5px;
+      }
+      
+
+    
+    </style>
+</head>
+
+
+
+<body>
+    
+    <nav class="menu menu-1" style="opacity:80%;">
+
+        <ul>
+          <li><a href="./index.html">home</a></li>
+          <li><a href="./GroHarvest/index.html">Crop Bazaar</a></li>
+          <li><a href="./login.html">log in</a></li>
+          <li ><a href="./admin.html" ><img src="./images/logo_main.png"  class="logo-button"></a></li>
+          <li><a href="./otherschemes.html">other schemes</a></li>
+          <li><a href="./helpline1.html">helpline</a></li>
+        </ul>
+      </nav>
+
+    
+      <div class="container">
+        <form action="signup.php" method="POST">
+            <div class="row">
+                <div class="col-12" style="text-align:center;color:red;">Error Occured ! Kindly check your details and fill again.</div><br><br>
+                <div class="col-4">
+                    <label for="fname">FIRST NAME</label>
+                    <input type="text" id="fname" name="fname" placeholder="First Name">
+                </div>
+                <div class="col-4">
+                    <label for="mname">MIDDLE NAME</label>
+                    <input type="text" id="mname" name="mname" placeholder="Middle Name">
+                </div>
+                <div class="col-4">
+                    <label for="lname">LAST NAME</label>
+                    <input type="text" id="lname" name="lname" placeholder="Last Name">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-4">
+                    <label for="gender">GENDER</label>
+                        <select name="gender">
+                        <option value="">--Please choose an option--</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                        </select>
+                </div>
+                <div class="col-4">
+                    
+                        <label for="dob">DOB:</label>
+                          <input type="date" name="dob" />
+                </div>
+
+                <div class="col-4">
+                    <label for="adhaar">ADHAAR NUMBER</label>
+                    <input type="number" id="adhaar" name="adhaar" placeholder="12-Digit-Adhaar-Number">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-6">
+                    <label for="contact">CONTACT NUMBER</label>
+                    <input type="number" name="contact" placeholder=" Mobile Number">
+                </div>
+                <div class="col-6">
+                    <label for="email">E-MAIL</label>
+                    <input type="email" id="email" name="email" placeholder="Email Address">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-12">
+                    <label for="location">LOCATION</label>
+                    <input type="location" id="location" name="location" placeholder="Address">
+                </div>
+
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+               
+                <div class="col-6">
+                    <label for="uname">SET USERNAME<sup style="color:red;">*</sup></label>
+                    <input type="text" id="name" name="uname" placeholder="username">
+                </div>
+                <div class="col-6">
+                    <label for="pass">SET PASSWORD<sup style="color:red;">*</sup></label>
+                    <input type="text" id="name" name="pass" placeholder="password">
+                </div>
+                
+                <div class="col-12">
+                    <input type="submit"></a>
+                </div>
+
+
+                
+                
+                
+            </div>
+        </form>
+    </div>
+
+
+
+
+
+
+
+      <footer class="footer">
+      <p style="text-align:center; color:white">© Made By CapsLock💚</p>
+
+    </div>
+  </footer>
+  <div class="overlay"></div>
+    <script src="./index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GroHarvest</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+    <link rel="manifest" href="./images/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body{
+        background: url(./images/main.png);
+       
+      }
+      .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0);
+        transition: 200ms ease-in-out;
+        border: 1px solid black;
+        border-radius: 10px;
+        z-index: 10;
+        background-color: white;
+        width: 500px;
+        max-width: 80%;
+      }
+      #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover
+    }
+      
+      .modal.active {
+        transform: translate(-50%, -50%) scale(1);
+      }
+      
+      .modal-header {
+        padding: 10px 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid black;
+      }
+      
+      .modal-header .title {
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      
+      .modal-header .close-button {
+        cursor: pointer;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 1.25rem;
+        font-weight: bold;
+      }
+      
+      .modal-body {
+        padding: 10px 15px;
+      }
+      
+      #overlay {
+        position: fixed;
+        opacity: 0;
+        transition: 200ms ease-in-out;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, .5);
+        pointer-events: none;
+      }
+      
+      #overlay.active {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .logo-button {
+        width: 70px;
+        padding-bottom:0px;
+        margin-bottom:0px;
+        position:relative;
+        top:20px
+        
+    }
+
+    body {
+        font-family: "League Spartan", system-ui, sans-serif;
+        font-size: 1.1rem;
+        line-height: 1.2;
+        background-color: #212121;
+        color: #ddd;
+      }
+      
+
+ul {
+  list-style: none;
+}
+
+.main {
+  max-width: 75rem;
+  padding: 3em 1.5em;
+}
+
+.main__heading {
+  font-weight: 600;
+  font-size: 2.25em;
+  margin-bottom: 0.75em;
+  text-align: center;
+  color: #eceff1;
+}
+
+.cards {
+  position: relative;
+}
+
+.cards__inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5em;
+}
+
+.card {
+  --flow-space: 0.5em;
+  --hsl: var(--hue), var(--saturation), var(--lightness);
+  flex: 1 1 14rem;
+  padding: 1.5em 2em;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  align-items: start;
+  gap: 1.25em;
+  color: #eceff1;
+  background-color: #2b2b2b;
+  border: 1px solid #eceff133;
+  border-radius: 15px;
+}
+
+.card:nth-child(1) {
+    --hue: 100;
+    --saturation: 100%;
+    --lightness: 22%;
+}
+
+.card:nth-child(2) {
+    --hue: 100;
+    --saturation: 100%;
+    --lightness: 22%;
+}
+
+.card:nth-child(3) {
+    --hue: 100;
+    --saturation: 100%;
+    --lightness: 22%;
+}
+
+.card__bullets {
+  line-height: 1.4;
+}
+
+.card__bullets li::before {
+  display: inline-block;
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512' width='16' title='check' fill='%23dddddd'%3E%3Cpath d='M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z' /%3E%3C/svg%3E");
+  transform: translatey(0.25ch);
+  margin-right: 1ch;
+}
+
+.card__heading {
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+.card__price {
+  font-size: 1.75em;
+  font-weight: 700;
+}
+
+.flow > * + * {
+  margin-top: var(--flow-space, 1.25em);
+}
+
+.cta {
+  display: block;
+  align-self: end;
+  margin: 1em 0 0.5em 0;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #0d0d0d;
+  padding: 0.7em;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  opacity: var(--opacity, 0);
+  -webkit-mask: radial-gradient(
+    25rem 25rem at var(--x) var(--y),
+    #000 1%,
+    transparent 50%
+  );
+  mask: radial-gradient(
+    25rem 25rem at var(--x) var(--y),
+    #000 1%,
+    transparent 50%
+  );
+  transition: 400ms mask ease;
+  will-change: mask;
+}
+
+.overlay .card {
+  background-color: hsla(var(--hsl), 0.15);
+  border-color: hsla(var(--hsl), 1);
+  box-shadow: 0 0 0 1px inset hsl(var(--hsl));
+}
+
+.overlay .cta {
+  display: block;
+  grid-row: -1;
+  width: 100%;
+  background-color: hsl(var(--hsl));
+  box-shadow: 0 0 0 1px hsl(var(--hsl));
+}
+
+:not(.overlay) > .card {
+  transition: 400ms background ease;
+  will-change: background;
+}
+
+:not(.overlay) > .card:hover {
+  --lightness: 95%;
+  background: hsla(var(--hsl), 0.1);
+}
+
+    label,
+    input {
+        display: block;
+        width: 100%;
+      padding-bottom:10px;
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        padding: 0.3em;
+    }
+    input[type="submit"] {
+        background: #004225;
+        color: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        margin-top: 1.3em;
+      cursor:pointer;
+    }
+    input[type="submit"]:hover{
+      background-color:#206a00;
+    }
+    
+    .container {
+        width: 460px;
+        margin: 5em auto;
+    }
+    form {
+        background-color: #ffffff;
+        padding-top: 40px;
+        padding-right: 40px;
+        padding-bottom: 40px;
+        padding-left: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    
+    input {
+        width: 100%;
+        padding: 9px 20px;
+        border: 1px solid #e1e2eb;
+        color: #102a43;
+        box-sizing: border-box;
+        font-size: 14px;
+        box-shadow: inset 0 2px 4px 0 rgba(206, 209, 224, 0.2);
+        border-radius: 3px;
+    }
+
+    </style>
+</head>
+
+
+
+<body>
+    <nav class="menu menu-1" style="padding-top:0px; padding-bottom:40px; opacity:80%;" >
+
+        <ul>
+          <li><a href="./index.html">home</a></li>
+          <li><a href="./GroHarvest/index.html">Crop Bazaar</a></li>
+          <li><a href="./login.html">log in</a></li>
+          <li ><a href="./admin.html" ><img src="./images/logo_main.png"  class="logo-button"></a></li>
+          <li><a href="./otherschemes.html">other schemes</a></li>
+          <li><a href="./helpline1.html">helpline</a></li>
+        </ul>
+      </nav>
+      <video id="video-background" autoplay loop muted>
+        <source src="./images/gro.mp4" type="video/mp4">
+        <!-- Add more source elements for different video formats if needed -->
+        Your browser does not support the video tag.
+    </video>
+
+      <div class="bg">
+        <div class="container1" style="display: grid;
+        place-items: center;" >
+        <main class="main flow" >
+          <h1 class="main__heading" style="color:#000;">HOW TO GET IN TOUCH WITH US ?</h1>
+          <br/>
+          <br/>
+          <br/>
+          <div class="main__cards cards">
+            <div class="cards__inner">
+              <div class="cards__card card">
+                <h2 class="card__heading"></h2>
+                <p class="card__price">COMPLAINTS</p>
+                <ul role="list" class="card__bullets flow">
+                  <li>we are committed to providing the best possible support and services. If you have encountered any issues, concerns, or problems related to the scheme, we want to hear from you. Please submit your complaints, and we will work diligently to address them.</li>
+                  
+                </ul>
+                <a href="#basic" class="card__cta cta" data-modal-target="#modal1">FILE COMPLAINTS</a>
+              </div>
+        
+              <div class="cards__card card">
+                <h2 class="card__heading"></h2>
+                <p class="card__price">FEEDBACK</p>
+                <ul role="list" class="card__bullets flow">
+                  <li>Your feedback is crucial in helping us enhance our services and better serve the needs. Please take a moment to share your thoughts, suggestions, and experiences with us.</li>
+                </ul>
+                <a href="#pro" class="card__cta cta" data-modal-target="#modal2">GIVE SUGGESTIONS</a>
+              </div>
+        
+              <div class="cards__card card">
+                <h2 class="card__heading"></h2>
+                <p class="card__price">FAQs</p>
+                <ul role="list" class="card__bullets flow">
+                  <li>Frequently Asked Questions (FAQs)  build user trust and serve as a central resource, simplifying information retrieval. </li>
+                </ul>
+                <a href="#ultimate" class="card__cta cta" data-modal-target="#modal3">FAQs</a>
+              </div>
+            </div>
+            
+            <div class="overlay cards__inner"></div>
+          </div>
+      </div>
+  
+        </main>
+        
+  
+
+      <!-- <button data-modal-target="#modal">Open Modal</button> -->
+      <div class="modal" id="modal1">
+        <div class="modal-header">
+          <div class="title" style="color:#004225;position:relative;left:35%;">COMPLAINTS</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="container1">
+                <form action="complaints.php" method="GET">
+                    <div>
+                        <div>
+                            <label for="location"></label>
+                            <input type="text" id="location" name="location" placeholder="Location">
+                        </div>
+                        <div>
+                            <label for="datetime"></label>
+                            <input type="text" id="datetime" name="datetime" placeholder="Date and Time">
+                        </div>
+                        <div >
+                            <label for="details"></label>
+                            <input  type="text" id="details" name="details" placeholder="Description">
+                        </div>
+                        
+                        <div>
+                            <input type="submit" value="done">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div id="overlay"></div>
+
+      <div class="modal" id="modal2">
+        <div class="modal-header">
+          <div class="title" style="color:#004225;position:relative;left:35%;">FEEDBACK</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="container1">
+                <form action="feedback.php" method="GET">
+                    <div>
+                        <div>
+                            <label for="feedback"></label>
+                            <input type="text" id="feedback" name="feedback" placeholder="Briefly describe your suggestion or idea">
+                        </div>
+                        <div>
+                            <label for="review"></label>
+                            <input type="text" id="review" name="review" placeholder="Have you benefitted from the Scheme?">
+                        </div>
+                        <div >
+                            <label for="thoughts"></label>
+                            <input  type="text" id="thoughts" name="thoughts" placeholder="Share your thoughts about the Scheme">
+                        </div>
+                        
+                        <div>
+                            <input type="submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+      <div id="overlay"></div>
+      <div class="modal" id="modal3">
+        <div class="modal-header">
+          <div class="title" style="color:#004225;position:relative;left:35%;">FAQs</div>
+          <button data-close-button class="close-button">&times;</button>
+        </div>
+        <div class="modal-body">
+            <div class="container1" style="color:rgb(54, 54, 54);">
+                <h3>What is the GroHarvest Yojana?</h3>
+                <br/>
+                <p>The GroHarvest Yojana is an initiative that aims to streamline the agricultural system by collecting updated data from farmers. This data helps in designing efficient schemes and projects for the agricultural sector.</p>
+                <br/>
+                <h3> Is my data safe when I update it on the portal?</h3>
+                <br/>
+                <p>Yes,We take data security and privacy very seriously.</p>
+                <br/>
+                <h3>What kind of information should I update on the portal?</h3>
+                <br/>
+                <p> income, crop yields, land size, and any other relevant agricultural data.</p>
+                <br/>
+                <h3>Will my data be used to determine eligibility for schemes or benefits?</h3>
+                <br/>
+                <p>Yes, updated data may be used to determine eligibility for schemes and benefits.</p>
+                <br/>
+            </div>
+        </div>
+      </div>
+      <div id="overlay"></div>
+      <script>
+
+
+        
+    
+        const openModalButtons = document.querySelectorAll('[data-modal-target]')
+        const closeModalButtons = document.querySelectorAll('[data-close-button]')
+        const overlay = document.getElementById('overlay')
+        
+        openModalButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const modal = document.querySelector(button.dataset.modalTarget)
+            openModal(modal)
+          })
+        })
+        
+        overlay.addEventListener('click', () => {
+          const modals = document.querySelectorAll('.modal.active')
+          modals.forEach(modal => {
+            closeModal(modal)
+          })
+        })
+        
+        closeModalButtons.forEach(button => {
+          button.addEventListener('click', () => {
+            const modal = button.closest('.modal')
+            closeModal(modal)
+          })
+        })
+        
+        function openModal(modal) {
+          if (modal == null) return
+          modal.classList.add('active')
+          overlay.classList.add('active')
+        }
+        
+        function closeModal(modal) {
+          if (modal == null) return
+          modal.classList.remove('active')
+          overlay.classList.remove('active')
+        }
+    
+      </script>
+
+      <script>
+        console.clear();
+
+const cardsContainer = document.querySelector(".cards");
+const cardsContainerInner = document.querySelector(".cards__inner");
+const cards = Array.from(document.querySelectorAll(".card"));
+const overlay = document.querySelector(".overlay");
+
+const applyOverlayMask = (e) => {
+  const overlayEl = e.currentTarget;
+  const x = e.pageX - cardsContainer.offsetLeft;
+  const y = e.pageY - cardsContainer.offsetTop;
+
+  overlayEl.style = `--opacity: 1; --x: ${x}px; --y:${y}px;`;
+};
+
+const createOverlayCta = (overlayCard, ctaEl) => {
+  const overlayCta = document.createElement("div");
+  overlayCta.classList.add("cta");
+  overlayCta.textContent = ctaEl.textContent;
+  overlayCta.setAttribute("aria-hidden", true);
+  overlayCard.append(overlayCta);
+};
+
+const observer = new ResizeObserver((entries) => {
+  entries.forEach((entry) => {
+    const cardIndex = cards.indexOf(entry.target);
+    let width = entry.borderBoxSize[0].inlineSize;
+    let height = entry.borderBoxSize[0].blockSize;
+
+    if (cardIndex >= 0) {
+      overlay.children[cardIndex].style.width = `${width}px`;
+      overlay.children[cardIndex].style.height = `${height}px`;
+    }
+  });
+});
+
+const initOverlayCard = (cardEl) => {
+  const overlayCard = document.createElement("div");
+  overlayCard.classList.add("card");
+  createOverlayCta(overlayCard, cardEl.lastElementChild);
+  overlay.append(overlayCard);
+  observer.observe(cardEl);
+};
+
+cards.forEach(initOverlayCard);
+document.body.addEventListener("pointermove", applyOverlayMask);
+      </script>
+     
+      <footer class="footer">
+      <p style="text-align:center; color:white; padding-bottom:30px;">© Made By CapsLock💚</p>
+
+    </div>
+  </footer>
+
+    <script src="./index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

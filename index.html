@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GroHarvest</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+    <link rel="manifest" href="./images/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body{
+        background: url(./images/main.png);
+      }
+      #chat-button {
+        position: fixed;
+        bottom: 50px;
+        left: 50px;
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+      
+      #popup-container {
+        display: none;
+        position: fixed;
+        bottom: 10px;
+        left: 10px;
+        width: 20%;
+        height: 50%;
+        background-color: #f1f1f1;
+        border: solid #133414 2px;
+        border-radius: 10px;
+      }
+      
+      #popup-content {
+        padding: 20px;
+        height: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      #close-button {
+        align-self: flex-end;
+        background-color: #ff0000;
+        color: white;
+        padding-left: 7px;
+        padding-right: 7px;
+        cursor: pointer;
+        border-radius: 5px;
+        border: solid black 1px;
+      }
+      
+      #chat-content {
+        flex-grow: 1;
+        overflow-y: auto;
+      }
+      
+      #user-message, #bot-message {
+        margin: 5px 0;
+        font-family: Arial, sans-serif;
+            font-size: 15px;
+            font-weight: bold;
+      }
+      
+      #user-input {
+        display: flex;
+        margin-top: 10px;
+      }
+      
+      #user-input-field {
+        flex-grow: 1;
+        padding: 5px;
+      }
+      
+      button {
+        margin-left: 10px;
+        padding: 5px;
+        cursor: pointer;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        border: solid black 1px;
+      }
+      #video-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        object-fit: cover
+    }
+    </style>
+</head>
+
+
+
+<body>
+    <nav class="menu menu-1" style="opacity:80%;">
+
+        <ul>
+          <li><a href="./index.html">home</a></li>
+          <li><a href="./GroHarvest/index.html">Crop Bazaar</a></li>
+          <li><a href="./login.html">log in</a></li>
+          <li ><a href="./admin.html" ><img src="./images/logo_main.png"  class="logo-button"></a></li>
+          <li><a href="./otherschemes.html">other schemes</a></li>
+          <li><a href="./helpline1.html">helpline</a></li>
+        </ul>
+      </nav>
+      <video id="video-background" autoplay loop muted>
+        <source src="./images/gro.mp4" type="video/mp4">
+        <!-- Add more source elements for different video formats if needed -->
+        Your browser does not support the video tag.
+    </video>
+      <h1  style="text-align:center; color:rgb(247, 255, 198); font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:100px; margin-top:100px" >Gro-Harvest</h1>
+      <h1  style="text-align:center; color:rgb(247, 255, 198); font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; font-size:30px; " >for the farmers of India.</h1>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <div id="chat-button" onclick="togglePopup()">Chat 💬</div>
+
+  <div id="popup-container">
+    <div id="popup-content">
+      <div id="close-button" onclick="togglePopup()">X</div>
+      <hr>
+      <div id="chat-content">
+        <div id="user-message">You: Hi there!</div>
+        <div id="bot-message">💻 Hello! How can I help you today?</div>
+        <!-- Add more chat messages as needed -->
+      </div>
+      <div id="user-input">
+        <input type="text" id="user-input-field" placeholder="chat with us...">
+        <button onclick="sendMessage()">Ask</button>
+      </div>
+    </div>
+  </div>
+
+
+      <footer class="footer">
+      <p style="text-align:center; color:rgb(0, 0, 0)">© Made By CapsLock💚</p>
+
+    </div>
+  </footer>
+
+    <script>function togglePopup() {
+      var popup = document.getElementById('popup-container');
+      popup.style.display = (popup.style.display === 'none' || popup.style.display === '') ? 'flex' : 'none';
+    }
+    
+    function sendMessage() {
+      var userInputField = document.getElementById('user-input-field');
+      var userMessage = userInputField.value.trim();
+      
+      if (userMessage !== '') {
+        var chatContent = document.getElementById('chat-content');
+        chatContent.innerHTML += '<div id="user-message">You: ' + userMessage + '</div>';
+    
+        var botResponse = getResponse(userMessage);
+        chatContent.innerHTML += '<div id="bot-message"> 💻' + botResponse + '</div>';
+    
+        userInputField.value = '';
+        chatContent.scrollTop = chatContent.scrollHeight; // Scroll to the bottom
+      }
+    }
+    
+    // Define a mapping of questions to answers
+    const questionMap = {
+      
+      "how can i identify and treat aphids on my tomato plants?": "Control aphids on tomato plants by spraying a mixture of water and dish soap. Ladybugs are natural predators and can also help keep aphids in check.",
+      "what are the common signs of nutrient deficiency in fruit trees?": "Signs of nutrient deficiency include yellowing leaves, stunted growth, and poor fruit development. Use a balanced fertilizer based on soil test results to address deficiencies.",
+      "how do i protect my cucumber plants from powdery mildew?": "Protect cucumber plants from powdery mildew by applying a fungicidal spray, ensuring good air circulation, and avoiding overhead watering.",
+      "what are the best practices for preventing root rot in indoor plants?": "To prevent root rot in indoor plants, use well-draining soil, water plants when the top inch of soil is dry, and avoid overwatering.",
+      "how can i distinguish between early blight and late blight in potato plants?": "Early blight in potatoes is characterized by dark spots with concentric rings, while late blight causes water-soaked lesions. Treat with fungicides specific to each disease.",
+      "what is the ideal pH level for growing strawberries?": "The ideal pH level for growing strawberries is between 5.5 and 6.5. Adjust soil pH using lime or sulfur as needed.",
+      "how do i control spider mites on my indoor herbs?": "Control spider mites on indoor herbs by regularly misting plants, increasing humidity, and using insecticidal soap.",
+      "what are the signs of bacterial wilt in squash plants, and how can it be managed?": "Signs of bacterial wilt in squash include wilting leaves and yellowing. Control by removing and destroying affected plants and using resistant varieties.",
+      "what should i do if my citrus tree has yellowing leaves?": "Yellowing leaves in citrus trees may indicate nutrient deficiency or water stress. Test soil, fertilize as needed, and ensure proper watering.",
+      "how can i prevent damping-off in seedlings during the germination stage?": "Prevent damping-off in seedlings by using sterile soil, proper spacing, and adequate ventilation. Water seedlings at the base to avoid fungal growth.",
+      "what are the recommended organic methods for pest control in a vegetable garden?": "Organic pest control methods include companion planting, neem oil sprays, and introducing beneficial insects like ladybugs and predatory beetles.",
+      "how do i revive wilted lettuce in a garden bed?": "Revive wilted lettuce by watering thoroughly, providing shade during the hottest part of the day, and ensuring proper soil moisture.",
+      "what are the best practices for pruning apple trees in the winter?": "Prune apple trees in winter by removing dead or diseased branches, shaping the tree, and opening up the canopy for better air circulation.",
+      "how can i protect my grapevines from fungal diseases like downy mildew?": "Protect grapevines from downy mildew with copper-based fungicides, proper spacing, and pruning to improve air circulation.",
+      "what is the best way to deal with blossom-end rot in peppers?": "Prevent blossom-end rot in peppers by maintaining consistent watering, providing calcium-rich soil, and avoiding excessive nitrogen fertilization.",
+      "how do i recognize and treat fire blight in pear trees?": "Recognize and treat fire blight in pear trees by pruning infected branches, applying antibiotics, and promoting overall tree health.",
+      "what are the symptoms of over-fertilization in flowering plants?": "Symptoms of over-fertilization include leaf burn, stunted growth, and nutrient imbalances. Adjust fertilization based on soil test recommendations.",
+      "how can i promote fruiting in a newly planted fig tree?": "Promote fruiting in a newly planted fig tree by providing well-draining soil, adequate sunlight, and proper watering.",
+      "what are the signs of thrips infestation in rose bushes, and how do i control them?": "Recognize thrips infestation in rose bushes by distorted leaves and silvery streaks. Control thrips with insecticidal soap or neem oil.",
+      "how do i create a proper watering schedule for my herb garden?": "Create a proper watering schedule for the herb garden based on the specific needs of each herb. Water when the top inch of soil is dry.",
+      "what is the best method for preventing and managing rust in beans?": "Prevent and manage rust in beans by planting resistant varieties, providing adequate spacing, and applying fungicidal sprays.",
+      "how do i protect my watermelon plants from common pests?": "Protect watermelon plants from common pests by using row covers, practicing crop rotation, and inspecting plants regularly.",
+      "what are the signs of a fungal infection in a lawn, and how can it be treated?": "Signs of fungal infection in a lawn include discolored patches and thinning grass. Treat with fungicides and improve lawn aeration.",
+      "how can i improve soil drainage in my vegetable garden?": "improve soil drainage in the vegetable garden by adding organic matter, using raised beds, and avoiding compacted soil.",
+      "what are the recommended practices for pruning and training grapevines for optimal yield?": "Prune and train grapevines for optimal yield by removing excess shoots, training vines on a trellis, and managing canopy density.",
+      "how do i identify and control whiteflies on my indoor herbs?": "Control whiteflies on indoor herbs by introducing natural predators like parasitic wasps or using insecticidal soap. Maintain good airflow to discourage infestations.",
+      "what is the best method for preventing and treating apple scab in orchards?": "Prevent and treat apple scab in orchards by applying fungicides, practicing proper sanitation, and choosing resistant apple varieties.",
+      "how can i rejuvenate a tired and overgrown herb garden?": "Rejuvenate a tired and overgrown herb garden by trimming overgrown plants, adding fresh soil, and replanting with a mix of herbs.",
+      "what are the signs of downy mildew in cucumber plants, and how can it be managed?": "Signs of downy mildew in cucumber plants include yellowing leaves with a fuzzy, purplish growth on the undersides. Control with copper-based fungicides.",
+      "how do i protect my sunflowers from bird damage during flowering?": "Protect sunflowers from bird damage during flowering by using netting or reflective materials to deter birds. Harvest seeds promptly to prevent attracting birds.",
+      "what are the symptoms of mosaic virus in squash, and can it be cured?": "Mosaic virus in squash causes mosaic-like patterns on leaves. There is no cure, so remove and destroy infected plants to prevent spread.",
+      "how can i enhance the soil fertility for growing carrots in my vegetable garden?": "Enhance soil fertility for growing carrots by adding well-rotted compost, avoiding excessive nitrogen, and maintaining a slightly acidic pH.",
+      "what is the recommended strategy for combating scale insects on citrus trees?": "Combat scale insects on citrus trees by applying horticultural oil, introducing natural predators like ladybugs, and regularly inspecting for infestations.",
+      "how do i identify and treat black spot disease on rose bushes?": "identify black spot disease on rose bushes by dark, round spots on leaves. Control with fungicidal sprays and proper pruning for airflow.",
+      "what are the best practices for preventing and managing clubroot in cabbage plants?": "Prevent and manage clubroot in cabbage plants by practicing crop rotation, using resistant varieties, and ensuring well-draining soil.",
+      "how can i promote flowering in my potted orchids?": "Promote flowering in potted orchids by providing proper light, humidity, and using a balanced orchid fertilizer.",
+      "what is the ideal watering schedule for growing tomatoes in containers?": "For growing tomatoes in containers, water when the top inch of soil is dry. Use well-draining soil and ensure proper drainage in the pots.",
+      "how do i protect my pumpkin vines from powdery mildew?": "Protect pumpkin vines from powdery mildew by applying fungicides, planting resistant varieties, and spacing plants for good airflow.",
+      "what are the signs of overwintering pests in fruit trees, and how can i control them?": "Signs of overwintering pests in fruit trees include egg masses and scales on branches. Use horticultural oil in late winter to control them.",
+      "how do i identify and treat leafhoppers on my bean plants?": "Control leafhoppers on bean plants by using neem oil or insecticidal soap. introduce natural predators like lacewings for ongoing management.",
+      "what are the common causes of wilting in zucchini plants, and how do i address them?": "Causes of wilting in zucchini plants may include root rot or bacterial wilt. improve soil drainage and remove affected plants promptly.",
+      "how can i naturally control slugs in my lettuce patch?": "Control slugs in lettuce patches by using beer traps, diatomaceous earth, or copper barriers. Avoid overwatering to reduce slug attraction.",
+      "what are the indicators of overwatering in succulent plants, and how can i correct it?": "indicators of overwatering in succulent plants include yellowing leaves and mushy stems. Adjust watering frequency and ensure well-draining soil.",
+      "how do i create a beneficial insect habitat in my backyard for pest control?": "Create a beneficial insect habitat by planting diverse flowers, providing water sources, and avoiding the use of broad-spectrum pesticides.",
+      "what are the steps for proper storage of harvested potatoes to prevent spoilage?": "Store harvested potatoes in a cool, dark, and well-ventilated place to prevent spoilage. Avoid storing them near onions.",
+      "how can i revitalize a neglected flower bed with poor soil quality?": "Revitalize a neglected flower bed with poor soil quality by amending with organic matter, such as compost or well-rotted manure.",
+      "what are the signs of blossom drop in fruit trees, and how can it be prevented?": "Signs of blossom drop in fruit trees may indicate stress. Ensure proper watering, fertilization, and pollination to prevent drop.",
+      "how do i control aphids on rosemary plants without harming beneficial insects?": "Control aphids on rosemary plants by spraying with a mixture of water and dish soap. Use companion plants like marigolds to deter aphids.",
+      "what is the best approach for preventing blight in tomato plants?": "Prevent blight in tomato plants by using disease-resistant varieties, spacing plants for airflow, and applying fungicides preventatively.",
+      "how can i protect my strawberry plants from frost damage in the winter?": "Protect strawberry plants from frost damage by covering them with frost cloth or straw during cold spells. Avoid pruning in late fall to reduce vulnerability.",
+      "how can i identify and control aphids on my pepper plants?": "Control aphids on pepper plants by spraying a mixture of water and neem oil. introduce ladybugs or predatory insects for ongoing management.",
+      "what are the signs of bacterial canker in fruit trees, and how can it be managed?": "identify bacterial canker by sunken lesions on branches. Prune affected branches and apply copper-based sprays for control.",
+      "how do i prevent and treat root-knot nematodes in my vegetable garden?": "Rotate crops, use resistant varieties, and add organic matter to the soil to manage root-knot nematodes.",
+      "what is the best way to protect lettuce from summer heat and bolting?": "Provide shade during the hottest part of the day, use mulch to retain moisture, and choose heat-tolerant lettuce varieties.",
+      "how can i identify and manage rust in wheat crops?": "identify rust by orange pustules on leaves. Apply fungicides and choose rust-resistant wheat varieties.",
+      "what are the steps for pruning blueberry bushes for optimal fruit production?": "Prune blueberry bushes in late winter to remove dead wood, open the canopy, and encourage new growth for optimal fruit production.",
+      "how do i protect my cherry trees from birds during the fruiting season?": "Use bird netting or reflective tape to deter birds. Harvest cherries promptly to minimize attraction.",
+      "what are the signs of blossom-end rot in tomatoes, and how can it be prevented?": "Blossom-end rot in tomatoes is characterized by dark, sunken spots. Ensure consistent watering and add calcium to the soil to prevent it.",
+      "how can i rejuvenate a tired and overgrown orchard with overgrown fruit trees?": "Prune overgrown branches, remove dead wood, and apply a balanced fertilizer to revitalize neglected fruit trees.",
+      "what is the recommended method for controlling cucumber beetles in the garden?": "Control cucumber beetles with insecticidal soap, neem oil, or beneficial insects like parasitic nematodes.",
+      "how do i identify and treat gray mold on strawberry plants?": "identify gray mold by fuzzy, gray lesions on berries. Remove affected fruit, improve air circulation, and apply fungicides.",
+      "what is the proper way to thin fruit clusters on grapevines?": "Thin fruit clusters on grapevines by removing excess grapes, promoting even ripening, and reducing disease risk.",
+      "how can i protect my peach tree from peach leaf curl disease?": "Apply fungicides in late winter before bud break, and ensure proper pruning to improve air circulation and reduce moisture.",
+      "what are the signs of over-fertilization in citrus trees, and how can it be corrected?": "Signs include leaf burn and stunted growth. Correct by flushing the soil with water and adjusting future fertilization.",
+      "how do i identify and control spider mites on houseplants?": "Control spider mites on houseplants by misting regularly, increasing humidity, and using insecticidal soap.",
+      "what is the best method for preventing damping-off in seedlings?": "Use sterile soil, avoid overwatering, and provide adequate ventilation to prevent damping-off in seedlings.",
+      "how do i protect my pumpkin plants from squash vine borers?": "Use row covers during the early season, monitor for eggs, and apply insecticides or introduce beneficial nematodes.",
+      "what are the signs of late blight in potato plants, and how can it be managed?": "Late blight causes dark, water-soaked lesions. Remove infected foliage, and apply copper-based fungicides for control.",
+      "how can i improve soil drainage in a waterlogged herb garden?": "Add organic matter, create raised beds, and amend soil with coarse sand to improve drainage in a waterlogged herb garden.",
+      "what is the recommended method for pruning raspberry bushes for a bountiful harvest?": "Prune raspberry bushes by removing dead canes, thinning crowded areas, and promoting new growth for optimal fruit production.",
+      "how do i identify and treat crown gall disease in fruit trees?": "identify crown gall by swollen growths on the roots or trunk. Remove and destroy affected plants, and practice good sanitation.",
+      "what are the signs of anthracnose in tomatoes, and how can it be controlled?": "Signs of anthracnose in tomatoes include dark lesions with concentric rings. Apply copper-based fungicides and practice crop rotation.",
+      "how can i prevent and manage cabbage worms in my vegetable garden?": "Control cabbage worms with biological insecticides like Bt (Bacillus thuringiensis) or by introducing natural predators like parasitic wasps.",
+      "what are the signs of nitrogen deficiency in corn plants, and how can it be corrected?": "Signs include yellowing leaves. Correct nitrogen deficiency by applying a nitrogen-rich fertilizer.",
+      "how do i protect my grapevines from bird damage during the ripening period?": "Use bird netting or reflective materials to deter birds. Harvest grapes promptly to minimize bird attraction.",
+  };
+    
+    
+    // Function to get the response for a given question
+    function getResponse(question) {
+      const lowercaseQuestion = question.toLowerCase();
+      
+      // Check if the question is in the map
+      if (questionMap.hasOwnProperty(lowercaseQuestion)) {
+        return questionMap[lowercaseQuestion];
+      } else {
+        // Try to find a partial match
+        const partialMatch = Object.keys(questionMap).find(q => q.includes(lowercaseQuestion));
+        if (partialMatch) {
+          return questionMap[partialMatch];
+        } else {
+          // Default response for unknown questions
+          return "I'm sorry, I don't understand that question.";
+        }
+      }
+    }</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>

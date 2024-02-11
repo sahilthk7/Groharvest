@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GroHarvest</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./images/favicon-16x16.png">
+    <link rel="manifest" href="./images/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      body{
+        background: url(./images/black.png);
+       
+      }
+    label,
+    input {
+        display: block;
+        width: 100%;
+      padding-bottom:10px;
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    li {
+        padding: 0.3em;
+    }
+    input[type="submit"] {
+        background: #004225;
+        color: white;
+        font-weight: 700;
+        font-size: 1.2rem;
+        border-radius: 5px;
+        margin-top: 1.3em;
+        cursor:pointer;
+    }
+    input[type="submit"]:hover{
+      background-color:#206a00;
+    }
+    
+    .container {
+        width: 1000px;
+        margin: 5em auto;
+    }
+    form {
+        background-color: #ffffff;
+        padding-top: 40px;
+        padding-right: 40px;
+        padding-bottom: 40px;
+        padding-left: 40px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    
+    input {
+        width: 100%;
+        padding: 9px 20px;
+        border: 1px solid #e1e2eb;
+        color: #102a43;
+        box-sizing: border-box;
+        font-size: 14px;
+        box-shadow: inset 0 2px 4px 0 rgba(206, 209, 224, 0.2);
+        border-radius: 3px;
+    }
+    label {
+        font-family: sans-serif;
+        font-size: 1rem;
+        padding-right: 10px;
+      }
+      
+      select {
+        font-size: 0.9rem;
+        padding: 2px 5px;
+      }
+      
+
+    
+    </style>
+</head>
+
+
+
+<body>
+    
+    <nav class="menu menu-1" style="opacity:80%;">
+
+        <ul>
+          <li><a href="./index.html">home</a></li>
+          <li><a href="./GroHarvest/index.html">Crop Bazaar</a></li>
+          <li><a href="./login.html">log in</a></li>
+          <li ><a href="./admin.html" ><img src="./images/logo_main.png"  class="logo-button"></a></li>
+          <li><a href="./otherschemes.html">other schemes</a></li>
+          <li><a href="./helpline1.html">helpline</a></li>
+        </ul>
+      </nav>
+
+      <div class="container">
+        <form action="entry.php" method="POST">
+            <div class="row">
+            
+                <div class="col-4">
+                    <label for="uid">UID<sup style="color:red">*</sup></label>
+                    <input type="text" id="name" name="uid" placeholder="Enter Here">
+                </div>
+                
+                <div class="col-4">
+                <label for="crop">Crop Harvested</label>
+                <select name="crop">
+                <option value="">--Please choose an option--</option>
+                    <option value="rice">Rice</option>
+                    <option value="wheat">Wheat</option>
+                    <option value="sugarcane">Sugarcane</option>
+                    <option value="millet">Millet</option>
+                    <option value="corn">Corn</option>
+                </select>
+                </div>
+                <div class="col-4">
+                    <label for="state">STATE</label>
+                    <select name="state">
+                    <option value="">--Please choose an option--</option>
+                        <option value="arunachalpradesh">Arunachal Pradesh</option>
+                        <option value="assam">Assam</option>
+                        <option value="bihar">Bihar</option>
+                        <option value="chhattisgarh">Chhattisgarh</option>
+                        <option value="goa">Goa</option>
+                        <option value="gujarat">Gujarat</option>
+                        <option value="haryana">Haryana</option>
+                        <option value="himachalpradesh">Himachal Pradesh</option>
+                        <option value="jharkhand">Jharkhand</option>
+                        <option value="karnataka">Karnataka</option>
+                        <option value="kerala">Kerala</option>
+                        <option value="madhyapradesh">Madhya Pradesh</option>
+                        <option value="maharashtra">Maharashtra</option>
+                        <option value="manipur">Manipur</option>
+                        <option value="meghalaya">Meghalaya</option>
+                        <option value="mizoram">Mizoram</option>
+                        <option value="nagaland">Nagaland</option>
+                        <option value="odisha">Odisha</option>
+                        <option value="punjab">Punjab</option>
+                        <option value="rajasthan">Rajasthan</option>
+                        <option value="sikkim">Sikkim</option>
+                        <option value="tamilnadu">Tamil Nadu</option>
+                        <option value="telangana">Telangana</option>
+                        <option value="tripura">Tripura</option>
+                        <option value="uttarpradesh">Uttar Pradesh</option>
+                        <option value="uttarakhand">Uttarakhand</option>
+                        <option value="westbengal">West Bengal</option>
+                        <option value="jammukashmir">J & K</option>
+                    </select>
+
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+    
+                <div class="col-6">
+                    <label for="quantity">Total quantity or weight of your harvest (in KGs)</label>
+                    <input type="number" id="name" name="quantity" placeholder="Enter Here">
+                </div>
+                
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-6">
+                    <label for="kgprice">Price Harvest Sold at / per Kg </label>
+                    <input type="number" id="name" name="kgprice" placeholder="Enter Here">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-6">
+                    <label for="seed">Quantity of seeds used for cultivation (in KGs)</label>
+                    <input type="number" id="name" name="seed" placeholder="Enter Here">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-6">
+                    <label for="land">Size of land used for cultivation (in Acres) </label>
+                    <input type="number" id="name" name="land" placeholder="Enter Here">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-6">
+                    <label for="fertilizer">Amount ₹ spent on Fertilizers, Pesticides, Etc. during harvest</label>
+                    <input type="number" id="name" name="fertilizer" placeholder="Enter Here">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <div class="col-6">
+                    <label for="income">What was your total income ₹ from agricultural activities during this season?</label>
+                    <input type="number" id="name" name="income" placeholder="Enter Here">
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
+
+                
+                <div class="col-12">
+                    <input type="submit"></a>
+                </div>
+
+
+                
+                
+                
+            </div>
+        </form>
+    </div>
+
+
+
+      <footer class="footer">
+      <p style="text-align:center; color:white">© Made By CapsLock💚</p>
+
+    </div>
+  </footer>
+  <div class="overlay"></div>
+    <script src="./index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
+</html>
